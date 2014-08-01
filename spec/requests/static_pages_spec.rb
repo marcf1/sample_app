@@ -11,11 +11,17 @@ describe "Static pages" do
       expect(page).to have_content('Sample App')
     end
 
-    it "should have the title 'Home'" do
+    it "should have the base title" do
       visit '/static_pages/home'
-      expect(page).to have_title("#{base_title} | Home")
+      expect(page).to have_title("#{base_title}")	# check if page title contains this string, not if it matches exactly
     end
-  end
+
+    it "should not have a custom page title" do		# above test allows '| Home' in title, which we don't want
+      visit '/static_pages/home'
+      expect(page).not_to have_title('| Home')
+    end
+
+   end
 
   describe "Help page" do
 
